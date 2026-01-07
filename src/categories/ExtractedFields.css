@@ -1,0 +1,241 @@
+
+/* ==================== ExtractedFields.css ==================== */
+
+.extracted-fields-container {
+  animation: slideDown 0.3s ease-out;
+  margin-bottom: 24px;
+}
+
+.fields-wrapper {
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 2px solid #f59e0b;
+}
+
+.fields-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.fields-count {
+  font-size: 16px;
+  font-weight: 700;
+  color: #92400e;
+}
+
+.fields-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-edit {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.btn-edit:hover {
+  background: #5568d3;
+  transform: translateY(-1px);
+}
+
+.btn-save {
+  background: #48bb78;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.btn-save:hover {
+  background: #38a169;
+  transform: translateY(-1px);
+}
+
+.btn-cancel-edit {
+  background: #cbd5e0;
+  color: #2d3748;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.btn-cancel-edit:hover {
+  background: #a0aec0;
+}
+
+/* Fields List */
+.fields-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.field-card {
+  background: white;
+  border-radius: 10px;
+  padding: 16px;
+  border: 1px solid #fbbf24;
+  transition: all 0.2s;
+}
+
+.field-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* View Mode */
+.field-view {
+  display: flex;
+  flex-direction: column;
+}
+
+.field-key {
+  font-size: 12px;
+  font-weight: 600;
+  color: #78350f;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.field-value {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 6px;
+}
+
+.field-description {
+  font-size: 13px;
+  color: #718096;
+  font-style: italic;
+}
+
+/* Edit Mode */
+.field-edit {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.field-inputs {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+.field-input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.field-textarea {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 13px;
+  min-height: 60px;
+  resize: vertical;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.field-textarea:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.btn-remove-field {
+  background: #fed7d7;
+  border: none;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.btn-remove-field:hover {
+  background: #fc8181;
+}
+
+/* No Fields State */
+.no-fields-state {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.no-fields-icon {
+  margin: 0 auto 16px;
+  opacity: 0.5;
+}
+
+.no-fields-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 8px;
+}
+
+.no-fields-subtitle {
+  font-size: 14px;
+  color: #718096;
+  margin-bottom: 20px;
+}
+
+.btn-add-first-field {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.btn-add-first-field:hover {
+  background: #5568d3;
+  transform: translateY(-1px);
+}

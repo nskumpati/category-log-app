@@ -1,0 +1,358 @@
+/* Schema Editor Styles */
+
+.schema-editor-section {
+  margin-top: 24px;
+}
+
+/* Action Buttons Header */
+.fields-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.fields-header-content h3 {
+  margin: 0;
+}
+
+.fields-header-content p {
+  font-size: 14px;
+  color: #666;
+  margin-top: 4px;
+}
+
+.fields-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-add-field,
+.btn-save,
+.btn-cancel-edit {
+  padding: 8px 16px;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: opacity 0.2s;
+}
+
+.btn-add-field {
+  background-color: #10b981;
+}
+
+.btn-add-field:hover {
+  opacity: 0.9;
+}
+
+.btn-save {
+  background-color: #7c3aed;
+}
+
+.btn-save:hover {
+  opacity: 0.9;
+}
+
+.btn-cancel-edit {
+  background-color: #ef4444;
+}
+
+.btn-cancel-edit:hover {
+  opacity: 0.9;
+}
+
+/* Basic Information Edit Section */
+.basic-info-edit-section {
+  margin-bottom: 24px;
+  background-color: #ffffff;
+  padding: 0;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+}
+
+.basic-info-edit-section h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 0;
+  padding: 16px 20px;
+  border-bottom: 2px solid #7c3aed;
+  text-align: center;
+  background-color: #f8fafc;
+}
+
+.basic-info-rows {
+  display: flex;
+  flex-direction: column;
+}
+
+.basic-info-row {
+  display: flex;
+  align-items: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid #e2e8f0;
+  background-color: #ffffff;
+}
+
+.basic-info-row:last-child {
+  border-bottom: none;
+}
+
+.basic-info-row-split {
+  display: flex;
+  border-bottom: 1px solid #e2e8f0;
+  background-color: #ffffff;
+}
+
+.basic-info-row-half {
+  display: flex;
+  align-items: center;
+  padding: 14px 20px;
+  flex: 1;
+}
+
+.basic-info-row-half:first-child {
+  border-right: 1px solid #e2e8f0;
+}
+
+.basic-info-label {
+  display: flex;
+  align-items: center;
+  min-width: 150px;
+  color: #4a5568;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.basic-info-label-small {
+  display: flex;
+  align-items: center;
+  min-width: 130px;
+  color: #4a5568;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.basic-info-label-xs {
+  display: flex;
+  align-items: center;
+  min-width: 110px;
+  color: #4a5568;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.basic-info-label svg,
+.basic-info-label-small svg,
+.basic-info-label-xs svg {
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.basic-info-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: white;
+  margin-left: 16px;
+}
+
+.basic-info-input:focus {
+  outline: none;
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+/* Extracted Fields Section */
+.extracted-fields-header {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.fields-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.field-card {
+  background-color: white;
+  border: 2px solid #f59e0b;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  gap: 12px;
+  transition: border-color 0.2s;
+}
+
+.field-card:hover {
+  border-color: #d97706;
+}
+
+.field-edit {
+  flex: 1;
+}
+
+.field-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.field-input,
+.field-textarea {
+  padding: 8px 12px;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  width: 100%;
+}
+
+.field-input:focus,
+.field-textarea:focus {
+  outline: none;
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+.field-textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.btn-remove-field {
+  padding: 8px;
+  background-color: #fee2e2;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  transition: background-color 0.2s;
+  height: fit-content;
+}
+
+.btn-remove-field:hover {
+  background-color: #fecaca;
+}
+
+/* No Fields State */
+.no-fields-state {
+  text-align: center;
+  padding: 40px;
+  background-color: #f8fafc;
+  border-radius: 8px;
+}
+
+.no-fields-icon {
+  margin: 0 auto 16px;
+}
+
+.no-fields-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 8px;
+}
+
+.no-fields-subtitle {
+  font-size: 14px;
+  color: #718096;
+  margin-bottom: 20px;
+}
+
+.btn-add-first-field {
+  padding: 10px 20px;
+  background-color: #10b981;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.2s;
+}
+
+.btn-add-first-field:hover {
+  opacity: 0.9;
+}
+
+/* Edit & Finalize Button */
+.btn-edit-finalize {
+  width: 100%;
+  padding: 14px 24px;
+  background-color: #7c3aed;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background-color 0.2s;
+  margin-top: 24px;
+}
+
+.btn-edit-finalize:hover {
+  background-color: #6d28d9;
+}
+
+/* Done Button */
+.done-button {
+  width: 100%;
+  padding: 12px 24px;
+  background-color: #10b981;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 24px;
+  transition: opacity 0.2s;
+}
+
+.done-button:hover {
+  opacity: 0.9;
+}
+
+/* Modal Expanded State */
+.modal-container.expanded {
+  max-width: 1200px;
+  width: 95vw;
+}
+
+.modal-container.normal {
+  max-width: 800px;
+}
+
+.modal-container {
+  transition: max-width 0.5s ease-in-out;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
