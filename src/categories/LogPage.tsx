@@ -6,6 +6,7 @@ import './Upload.css';
 import './DocumentDetails.css';
 import './ExtractedFields.css';
 import './SchemaEditor.css';
+import './ProcessingModal.css';
 
 // Type Definitions
 interface Category {
@@ -94,6 +95,11 @@ function LogPage() {
     categoryName: '',
     uploadedAt: ''
   });
+
+  // Processing Modal States
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [processingMessage, setProcessingMessage] = useState('');
+  const [processingStatus, setProcessingStatus] = useState<'loading' | 'success' | 'error' | null>(null);
 
   useEffect(() => {
     fetchCategories();
@@ -185,7 +191,6 @@ function LogPage() {
       const formData = new FormData();
       formData.append('file', selectedFile);
 
-      // Simulate progress for fetch (since fetch doesn't support upload progress natively)
       const progressInterval = setInterval(() => {
         setUploadProgress(prev => {
           if (prev >= 90) {
@@ -221,7 +226,6 @@ function LogPage() {
     }
   };
 
-
   const handleCloseUploadModal = (): void => {
     if (!isUploading) {
       setShowUploadModal(false);
@@ -244,20 +248,21 @@ function LogPage() {
   };
 
   const handleSaveFields = async (): Promise<void> => {
+    setIsProcessing(true);
+    setProcessingMessage('Saving schema...');
+    setProcessingStatus('loading');
+    
     try {
       if (!documentDetails) {
-        alert('Document details not found.');
-        return;
+        throw new Error('Document details not found.');
       }
 
-      // Use category name if it's a new category, otherwise use ID
       const identifier = documentDetails.isNewCategory 
         ? editedBasicInfo.categoryName 
         : documentDetails.categoryId;
       
       if (!identifier) {
-        alert('Category identifier not found. Cannot save fields.');
-        return;
+        throw new Error('Category identifier not found. Cannot save fields.');
       }
       
       const url = `http://localhost:8080/v1/documents/${identifier}/fields`;
@@ -281,7 +286,6 @@ function LogPage() {
       
       const result: SaveFieldsResponse = await response.json();
       
-      // Update documentDetails with the newly created category ID if it was created
       if (result.categoryId) {
         setDocumentDetails(prev => prev ? {
           ...prev,
@@ -292,16 +296,25 @@ function LogPage() {
         } : null);
       }
       
-      setShowSchemaEditor(false);
-      alert('Schema finalized successfully!');
+      setProcessingStatus('success');
+      setProcessingMessage('Schema finalized successfully!');
       
-      // Refresh categories list
-      fetchCategories();
+      setTimeout(() => {
+        setShowSchemaEditor(false);
+        setIsProcessing(false);
+        fetchCategories();
+      }, 1500);
       
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       console.error('Error saving fields:', error);
-      alert(`Failed to save fields: ${errorMessage}`);
+      
+      setProcessingStatus('error');
+      setProcessingMessage(`Failed to save fields: ${errorMessage}`);
+      
+      setTimeout(() => {
+        setIsProcessing(false);
+      }, 3000);
     }
   };
 
@@ -344,7 +357,6 @@ function LogPage() {
     setEditedFields(prev => [...prev, { key: '', value: '', description: '' }]);
   };
 
-  // Info Row Component
   const InfoRow: React.FC<InfoRowProps> = ({ icon: Icon, label, value, color, delay }) => (
     <div className="info-row" style={{ animationDelay: `${delay}s` }}>
       <div className="info-row-left">
@@ -355,16 +367,57 @@ function LogPage() {
     </div>
   );
 
+  const ProcessingModal = () => {
+    if (!isProcessing) return null;
+    
+    return (
+      <div className="processing-modal-overlay">
+        <div className="processing-modal-container">
+          <div className="processing-modal-content">
+            {processingStatus === 'loading' && (
+              <>
+                <Loader2 size={48} className="processing-spinner" />
+                <p className="processing-message">{processingMessage}</p>
+              </>
+            )}
+            
+            {processingStatus === 'success' && (
+              <>
+                <div className="processing-icon-success">
+                  <CheckCircle size={48} />
+                </div>
+                <p className="processing-message-success">{processingMessage}</p>
+              </>
+            )}
+            
+            {processingStatus === 'error' && (
+              <>
+                <div className="processing-icon-error">
+                  <X size={48} />
+                </div>
+                <p className="processing-message-error">{processingMessage}</p>
+                <button
+                  onClick={() => setIsProcessing(false)}
+                  className="processing-close-button"
+                >
+                  Close
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="log-page-container">
       <div className="log-page-wrapper">
-        {/* Header */}
         <div className="log-page-header">
           <h1 className="log-page-title">CATEGORY LOG</h1>
           <div className="title-underline" />
         </div>
 
-        {/* Main Content */}
         {loading ? (
           <div className="loading-state">
             <Loader2 size={48} className="loading-spinner spinner" />
@@ -379,7 +432,6 @@ function LogPage() {
           </div>
         ) : (
           <>
-            {/* Categories Grid */}
             {categories.length === 0 ? (
               <div className="empty-state">
                 <FileText size={64} className="empty-state-icon" />
@@ -408,7 +460,6 @@ function LogPage() {
               </div>
             )}
 
-            {/* Footer */}
             <div className="log-page-footer">
               <div className="category-count-badge">
                 Total Categories: {categories.length}
@@ -425,14 +476,11 @@ function LogPage() {
         )}
       </div>
 
-      {/* Upload Modal */}
       {showUploadModal && (
         <div className="modal-overlay">
           <div className={`modal-container ${showSchemaEditor && showDetails ? 'expanded' : 'normal'}`}>
-            {/* Gradient Bar */}
             <div className="modal-gradient-bar" />
             
-            {/* Modal Header */}
             <div className="modal-header">
               <div className="modal-header-content">
                 <div className="modal-title-section">
@@ -451,11 +499,9 @@ function LogPage() {
               </div>
             </div>
 
-            {/* Modal Content */}
             <div className="modal-content">
               {!showDetails ? (
                 <>
-                  {/* Upload Section */}
                   <p className="modal-description">
                     Upload a PDF document to create a new category
                   </p>
@@ -516,7 +562,6 @@ function LogPage() {
                     </div>
                   )}
 
-                  {/* Upload Actions */}
                   <div className="upload-actions">
                     <button 
                       onClick={handleCloseUploadModal} 
@@ -543,7 +588,6 @@ function LogPage() {
                 </>
               ) : (
                 <>
-                  {/* Document Details Section */}
                   <div className="success-banner">
                     <div className="success-icon-box">
                       <CheckCircle size={32} color="white" />
@@ -553,7 +597,6 @@ function LogPage() {
                     </div>
                   </div>
 
-                  {/* Basic Information - Only show when NOT in schema editor */}
                   {!showSchemaEditor && (
                     <div className="basic-info-section">
                       <div className="section-header">
@@ -600,7 +643,6 @@ function LogPage() {
                     </div>
                   )}
 
-                  {/* Edit & Finalize Schema Button or Schema Editor */}
                   {!showSchemaEditor ? (
                     <button 
                       onClick={() => setShowSchemaEditor(true)} 
@@ -611,7 +653,6 @@ function LogPage() {
                     </button>
                   ) : (
                     <div className="schema-editor-section">
-                      {/* Action Buttons at Top */}
                       <div className="fields-header">
                         <div className="fields-header-content">
                           <h3 className="section-title">Edit Schema</h3>
@@ -630,11 +671,9 @@ function LogPage() {
                         </div>
                       </div>
 
-                      {/* Editable Basic Information */}
                       <div className="basic-info-edit-section">
                         <h4>Basic Information</h4>
                         <div className="basic-info-rows">
-                          {/* File Name */}
                           <div className="basic-info-row">
                             <div className="basic-info-label">
                               <FileText size={18} color="#667eea" />
@@ -648,7 +687,6 @@ function LogPage() {
                             />
                           </div>
                           
-                          {/* File Size and File Pages Row */}
                           <div className="basic-info-row-split">
                             <div className="basic-info-row-half">
                               <div className="basic-info-label-small">
@@ -681,7 +719,6 @@ function LogPage() {
                             </div>
                           </div>
                           
-                          {/* Category */}
                           <div className="basic-info-row">
                             <div className="basic-info-label">
                               <Folder size={18} color="#f59e0b" />
@@ -695,7 +732,6 @@ function LogPage() {
                             />
                           </div>
                           
-                          {/* Uploaded At */}
                           <div className="basic-info-row" style={{ borderBottom: 'none' }}>
                             <div className="basic-info-label">
                               <Calendar size={18} color="#ec4899" />
@@ -711,12 +747,10 @@ function LogPage() {
                         </div>
                       </div>
 
-                      {/* Schema Fields Section Header */}
                       <h4 className="extracted-fields-header">
                         Extracted Fields ({editedFields.length})
                       </h4>
 
-                      {/* Schema Fields */}
                       {documentDetails?.extractedFields && editedFields.length > 0 ? (
                         <div className="fields-list">
                           {editedFields.map((field, index) => (
@@ -769,7 +803,6 @@ function LogPage() {
                     </div>
                   )}
 
-                  {/* Done Button - Only show when not in schema editor */}
                   {!showSchemaEditor && (
                     <button onClick={handleCloseUploadModal} className="done-button">
                       Done
@@ -781,6 +814,8 @@ function LogPage() {
           </div>
         </div>
       )}
+
+      <ProcessingModal />
     </div>
   );
 }

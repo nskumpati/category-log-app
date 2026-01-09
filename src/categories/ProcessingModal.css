@@ -1,0 +1,141 @@
+/* Processing Modal Styles */
+
+.processing-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.processing-modal-container {
+  background-color: white;
+  border-radius: 12px;
+  padding: 32px;
+  max-width: 400px;
+  width: 90%;
+  margin: 0 16px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.processing-modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Loading State */
+.processing-spinner {
+  animation: spin 1s linear infinite;
+  color: #667eea;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.processing-message {
+  color: #4a5568;
+  text-align: center;
+  margin: 0;
+  font-size: 16px;
+}
+
+/* Success State */
+.processing-icon-success {
+  border-radius: 50%;
+  background-color: #f0fdf4;
+  padding: 12px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.processing-icon-success svg {
+  color: #16a34a;
+}
+
+.processing-message-success {
+  color: #4a5568;
+  text-align: center;
+  font-weight: 500;
+  margin: 0;
+  font-size: 16px;
+}
+
+/* Error State */
+.processing-icon-error {
+  border-radius: 50%;
+  background-color: #fef2f2;
+  padding: 12px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.processing-icon-error svg {
+  color: #dc2626;
+}
+
+.processing-message-error {
+  color: #4a5568;
+  text-align: center;
+  font-weight: 500;
+  margin: 0 0 16px 0;
+  font-size: 16px;
+}
+
+.processing-close-button {
+  padding: 8px 16px;
+  background-color: #e5e7eb;
+  border: none;
+  border-radius: 6px;
+  color: #374151;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.processing-close-button:hover {
+  background-color: #d1d5db;
+}
+
+.processing-close-button:active {
+  background-color: #9ca3af;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .processing-modal-container {
+    padding: 24px;
+    max-width: 90%;
+  }
+
+  .processing-spinner {
+    width: 40px;
+    height: 40px;
+  }
+
+  .processing-icon-success svg,
+  .processing-icon-error svg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .processing-message,
+  .processing-message-success,
+  .processing-message-error {
+    font-size: 14px;
+  }
+}
